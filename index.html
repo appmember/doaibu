@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Doa Ibu</title>
+    <link rel="icon" type="image/x-icon" href="https://iainplk.ac.id/koleksilink/assets/images/potong_rambut.ico" />
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .antrean-card {
+            max-width: 360px;
+            margin: 50px auto;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .antrean-header {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            color: #fff;
+            padding: 24px 15px 50px;
+            /* lebih lega ke bawah */
+            position: relative;
+        }
+
+        .logo {
+            width: 72px;
+            height: 72px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            bottom: -36px;
+            /* TURUN dikit */
+            transform: translateX(-50%);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo img {
+            width: 60px;
+        }
+
+        .antrean-body {
+            background-color: #ffffff;
+            padding: 48px 20px 28px;
+            /* DIPERKECIL agar nomor naik */
+        }
+
+        .antrean-number {
+            font-size: 160px;
+            /* sedikit lebih kecil tapi lebih seimbang */
+            font-weight: 800;
+            color: #111827;
+            line-height: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .status-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .waiting-text {
+            font-size: 15px;
+            color: #6b7280;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="antrean-card text-center">
+
+            <!-- Header -->
+            <div class="antrean-header">
+                <h4 class="mb-0"><q>DO`A IBU</q></h4>
+                <h5>(Tempat Potong Rambut)</h5>
+                <small>Nomor Antrean</small>
+
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="https://iainplk.ac.id/koleksilink/<?= base_url(); ?>assets/images/potong_rambut.png" alt="Barbershop Logo">
+                </div>
+            </div>
+
+            <!-- Body -->
+            <div class="antrean-body">
+                <div class="antrean-number">8</div>
+                <div class="status-text">Sedang Dilayani</div>
+                <div class="waiting-text">Mohon bersiap-siap antrean berikutnya</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS & Icons -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- TODO[AppMember]: Client - HTML dan jQuery -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            loadNomor();
+            setInterval(loadNomor, 2000);
+
+            function loadNomor() {
+                let url = "http://localhost/koleksilink/appmember/ambilnomor";
+                $.get(url, function (data) {
+                    $(".antrean-number").text(data);
+                }).fail(function () {
+                    $(".antrean-number").text("1");
+                });
+            }
+        })
+    </script>
+
+</body>
+
+</html>
