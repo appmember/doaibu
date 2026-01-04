@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <title>Doa Ibu - Admin</title>
-    <link rel="icon" type="image/x-icon" href="<?= base_url(); ?>assets/images/potong_rambut.ico" />
+    <link rel="icon" type="image/x-icon" href="https://appmember.github.io/doaibu/images/potong_rambut.ico" />
 
     <style>
         body {
@@ -120,38 +120,46 @@
             $(".btn").on("click", function () {
                 let key = $(this).attr("id");
                 let nomor = $("#nomorAntrean").text();
+                let aksi = "";
 
                 switch (key) {
                     case 'tambahNomor':
-                        nomor++;
+                        aksi = "tambah";
                         break;
 
                     case 'kurangiNomor':
-                        if (nomor > 1) { nomor--; }
+                        if (nomor > 1) { aksi = "kurangi"; }
                         break;
 
                     case 'resetNomor':
-                        nomor = 1;
+                        aksi = "reset";
                         break;
                 }
 
-                let url = "http://localhost/koleksilink/appmember/ubahnomor";
-                $.post(url, { nomor }, function (data) {
-                    if (data) {
-                        $("#nomorAntrean").text(nomor);
-                    }
-                });
+                if (nomor && aksi) {
+                    let url = "https://iainplk.ac.id/koleksilink/appmember/ubahnomor";
+                    $.post(url, { nomor, aksi })
+                        .done(res => {
+                            $("#nomorAntrean").text(res.nomor);
+                        })
+                        .fail(err => {
+                            console.error(err);
+                        });
+                }
             });
 
 
             function loadNomor() {
-                let url = "http://localhost/koleksilink/appmember/ambilnomor";
-                $.get(url, function (data) {
-                    $("#nomorAntrean").text(data);
-                }).fail(function () {
-                    $("#nomorAntrean").text("1");
-                });
+                let url = "https://iainplk.ac.id/koleksilink/appmember/ambilnomor";
+                $.get(url)
+                    .done(function (res) {
+                        $("#nomorAntrean").text(res.nomor);
+                    })
+                    .fail(function () {
+                        $("#nomorAntrean").text("1");
+                    });
             }
+
         })
     </script>
 
